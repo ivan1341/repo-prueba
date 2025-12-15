@@ -1,1 +1,82 @@
-<p>appointments.page works!</p>
+<app-header></app-header>
+<div class="dashboard-container">
+  
+  <div class="list-panel">
+    <h2>📋 Citas Programadas</h2>
+    <p class="subtitle">Selecciona una cita para ver detalles</p>
+
+    <div class="appointments-scroll">
+      
+      <div *ngIf="appointments.length === 0" class="empty-state">
+        <p>No hay citas pendientes.</p>
+      </div>
+
+      @for (appt of appointments; track $index) {
+      <div 
+        class="appointment-item" 
+        (click)="selectAppointment(appt)"
+        [class.active]="selectedAppointment?.id === appt.id"
+      >
+        <div class="appt-info">
+          <h3>{{ appt.petName }} <span class="badge">{{ appt.service }}</span></h3>
+          <p>Dueño: {{ appt.clientName }}</p>
+          <small>📅 {{ appt.date | date:'shortTime' }} - {{ appt.date | date:'dd/MM' }}</small>
+        </div>
+
+        <button 
+          class="btn-delete" 
+          title="Marcar como Atendida"
+          (click)="deleteAppointment(appt.id, $event)"
+        >
+          ✅
+        </button>
+      </div>
+    }
+    </div>
+    
+  </div>
+
+  <div class="detail-panel">
+    @if(selectedAppointment) {
+    <div class="detail-card">
+      <div class="detail-header">
+        <h1>{{ selectedAppointment.petName }}</h1>
+        <span class="service-tag">{{ selectedAppointment.service }}</span>
+      </div>
+
+      <div class="detail-body">
+        <div class="info-group">
+          <label>Dueño:</label>
+          <p>{{ selectedAppointment.clientName }}</p>
+        </div>
+        
+        <div class="info-group">
+          <label>Fecha y Hora:</label>
+          <p class="highlight-date">
+            {{ selectedAppointment.date | date:'fullDate' }} a las {{ selectedAppointment.date | date:'shortTime' }}
+          </p>
+        </div>
+
+        <div class="info-group">
+          <label>Notas del Cliente:</label>
+          <div class="notes-box">
+            "{{ selectedAppointment.notes }}"
+          </div>
+        </div>
+      </div>
+    </div>
+    }@else {
+    <ng-template #noSelection>
+      <div class="no-selection-msg">
+        <span class="paw-icon">🐾</span>
+        <h3>Selecciona una mascota</h3>
+        <p>Haz clic en la lista de la izquierda para ver la información completa de la cita.</p>
+      </div>
+    </ng-template>
+    }
+
+
+  </div>
+</div>
+
+<app-footer></app-footer>
