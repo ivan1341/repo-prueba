@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="appointment-container">
+  
+  <div class="form-card">
+    <div class="card-header">
+      <h2>📅 Agenda tu Visita</h2>
+      <p>Completa los datos para recibir a tu mascota en <strong>Patitas</strong>.</p>
+    </div>
+
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="clientName">Nombre del Dueño <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="clientName" 
+            formControlName="clientName" 
+            placeholder="Ej. Juan Pérez"
+            [class.error-border]="hasError('clientName')"
+          >
+          @if (hasError('clientName')) {
+            <span class="error-msg">
+              El nombre del dueño es obligatorio.
+            </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="petName">Nombre de la Mascota <span class="required">*</span></label>
+          <input 
+            type="text" 
+            id="petName" 
+            formControlName="petName" 
+            placeholder="Ej. Firulais"
+            [class.error-border]="hasError('petName')"
+          >
+          @if (hasError('petName')) {
+            <span class="error-msg">
+              El nombre de la mascota es obligatorio.
+            </span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="date">Fecha y Hora Preferida <span class="required">*</span></label>
+          <input type="datetime-local"
+           id="date" 
+           formControlName="date"
+           step="1800"
+           [class.error-border]="hasError('date')"
+           >
+        @if (hasError('date')) {
+            <span class="error-msg">
+              La fecha y hora es obligatorio.
+            </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="service">Razón de la cita <span class="required">*</span></label>
+          <select id="service" formControlName="service" [class.error-border]="hasError('date')">
+            @for( s of servicesList; track s ) {
+                <option [value]="s">{{ s }}</option>
+            }
+
+          </select>
+            @if (hasError('service')) {
+            <span class="error-msg">
+              La razón de la cita es obligatoria.
+            </span>
+          }
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Notas Adicionales (Opcional)</label>
+        <textarea id="notes" formControlName="notes" rows="3" placeholder="¿Es alérgico a algo? ¿Es agresivo?"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Confirmar Cita</button>
+      
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<app-login></app-login>
+
+<section id="servicios" class="services-section">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="services-grid">
+      @for (service of services; track service.id) {
+        <div class="service-card">
+          <div class="icon-box">{{ service.icon }}</div>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+<app-footer></app-footer>

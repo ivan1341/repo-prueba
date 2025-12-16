@@ -1,0 +1,38 @@
+@use 'variables' as *;
+// --- Reset ---
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+.main-container {
+  background-color: $bg-light;
+  min-height: 100vh;
+}
+
+// --- Botones ---
+.btn-primary {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: $primary-color;
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  
+  &:hover { background-color: $primary-dark; }
+}
+
+.btn-secondary {
+  padding: 0.8rem 2rem;
+  background-color: transparent;
+  border: 2px solid $primary-color;
+  color: $primary-color;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  
+  &:hover { 
+    background-color: $primary-color; 
+    color: $white;
+  }
+}
