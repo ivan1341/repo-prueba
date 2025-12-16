@@ -27,7 +27,7 @@
           title="Marcar como Atendida"
           (click)="deleteAppointment(appt.id, $event)"
         >
-          ✅
+          ❌
         </button>
       </div>
     }
@@ -65,13 +65,11 @@
       </div>
     </div>
     }@else {
-    <ng-template #noSelection>
       <div class="no-selection-msg">
         <span class="paw-icon">🐾</span>
         <h3>Selecciona una mascota</h3>
         <p>Haz clic en la lista de la izquierda para ver la información completa de la cita.</p>
       </div>
-    </ng-template>
     }
 
 

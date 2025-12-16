@@ -60,14 +60,20 @@
         </div>
 
         <div class="form-group">
-          <label for="service">Servicio <span class="required">*</span></label>
-          <select id="service" formControlName="service">
+          <label for="service">Razón de la cita <span class="required">*</span></label>
+          <select id="service" formControlName="service" [class.error-border]="hasError('date')">
             @for( s of servicesList; track s ) {
                 <option [value]="s">{{ s }}</option>
             }
 
           </select>
+            @if (hasError('service')) {
+            <span class="error-msg">
+              La razón de la cita es obligatoria.
+            </span>
+          }
         </div>
+
       </div>
 
       <div class="form-group">

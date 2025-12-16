@@ -5,4 +5,8 @@
   background: $primary-dark;
   color: $white;
   font-size: 0.9rem;
+  a.email {
+    color: $primary-color;
+    text-decoration: underline;
+  }
 }

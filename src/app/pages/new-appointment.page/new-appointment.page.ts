@@ -18,7 +18,7 @@ export class NewAppointmentPage {
   isSubmitted = false;
 
   servicesList = [
-    'Consulta General', 'Vacunación', 'Estética', 'Cirugía'
+    'Consulta General', 'Vacunación', 'Estética', 'Cirugía', 'Otros'
   ];
 
   constructor(private fb: FormBuilder) {
@@ -44,6 +44,8 @@ export class NewAppointmentPage {
         next: (response) => {
           console.log('Cita guardada en el servidor:', response);
            alert(`¡Listo! Cita creada para ${this.appointmentForm.value.petName}`);
+           this.appointmentForm.reset();
+           this.isSubmitted = false;
         },
         error: (err) => {
           console.error('Error al guardar la cita:', err);
