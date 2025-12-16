@@ -11,5 +11,5 @@ import { Login } from './components/login/login';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('patitas-veterinaria');
+   readonly title = signal('patitas-veterinaria');
 }

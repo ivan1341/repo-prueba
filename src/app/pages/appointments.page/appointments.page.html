@@ -6,12 +6,11 @@
     <p class="subtitle">Selecciona una cita para ver detalles</p>
 
     <div class="appointments-scroll">
-      
-      <div *ngIf="appointments.length === 0" class="empty-state">
-        <p>No hay citas pendientes.</p>
-      </div>
+      @if (resultAppointments().length === 0) {
+         <p>No hay citas pendientes.</p>
+      }
 
-      @for (appt of appointments; track $index) {
+      @for (appt of resultAppointments(); track $index) {
       <div 
         class="appointment-item" 
         (click)="selectAppointment(appt)"

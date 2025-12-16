@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Header } from "../../components/header/header";
 import { Footer } from "../../components/footer/footer";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppointmentService } from '../../services/appointment-service';
 
 @Component({
   selector: 'app-new-appointment.page',
@@ -11,7 +12,9 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 })
 export class NewAppointmentPage {
   
-appointmentForm: FormGroup;
+  appointmentService = inject(AppointmentService);
+
+  appointmentForm: FormGroup;
   isSubmitted = false;
 
   servicesList = [
@@ -20,14 +23,12 @@ appointmentForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.appointmentForm = this.fb.group({
-      // Tus campos obligatorios solicitados
+      // Campos básicos para agendar una cita
       clientName: ['', [Validators.required, Validators.minLength(3)]],
       petName: ['', [Validators.required]],
-      
-      // Campos adicionales sugeridos para una cita completa
       date: ['', Validators.required],
       service: ['Consulta General', Validators.required],
-      notes: [''] // Opcional
+      notes: [''] 
     });
   }
 
@@ -38,7 +39,17 @@ appointmentForm: FormGroup;
     if (this.appointmentForm.valid) {
       console.log('Cita Agendada:', this.appointmentForm.value);
       alert(`¡Listo! Cita creada para ${this.appointmentForm.value.petName}`);
-      // Aquí llamarías a tu servicio de backend
+
+      // Aquí se llamaría al servicio para guardar la cita en el backend
+      this.appointmentService.createAppointment(this.appointmentForm.value).subscribe({
+        next: (response) => {
+          console.log('Cita guardada en el servidor:', response);   
+        },
+        error: (err) => {
+          console.error('Error al guardar la cita:', err);
+        }
+      });
+
     } else {
       console.log('Formulario inválido');
     }

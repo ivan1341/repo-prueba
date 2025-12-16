@@ -52,7 +52,10 @@
         <div class="form-group">
           <label for="service">Servicio</label>
           <select id="service" formControlName="service">
-            <option *ngFor="let s of servicesList" [value]="s">{{ s }}</option>
+            @for( s of servicesList; track s ) {
+                <option [value]="s">{{ s }}</option>
+            }
+
           </select>
         </div>
       </div>
