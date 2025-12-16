@@ -38,12 +38,12 @@ export class NewAppointmentPage {
     this.isSubmitted = true;
     if (this.appointmentForm.valid) {
       console.log('Cita Agendada:', this.appointmentForm.value);
-      alert(`¡Listo! Cita creada para ${this.appointmentForm.value.petName}`);
-
-      // Aquí se llamaría al servicio para guardar la cita en el backend
+     
+      // Aquí se llama al servicio para guardar la cita en el backend
       this.appointmentService.createAppointment(this.appointmentForm.value).subscribe({
         next: (response) => {
-          console.log('Cita guardada en el servidor:', response);   
+          console.log('Cita guardada en el servidor:', response);
+           alert(`¡Listo! Cita creada para ${this.appointmentForm.value.petName}`);
         },
         error: (err) => {
           console.error('Error al guardar la cita:', err);
@@ -55,7 +55,7 @@ export class NewAppointmentPage {
     }
   }
 
-  // Helper para ver errores en el HTML fácilmente
+  // Helper para ver errores en el HTML
   hasError(field: string): boolean {
     const control = this.appointmentForm.get(field);
     return !!(control?.invalid && (control?.dirty || control?.touched || this.isSubmitted));

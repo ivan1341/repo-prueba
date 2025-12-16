@@ -6,11 +6,11 @@
     <p class="subtitle">Selecciona una cita para ver detalles</p>
 
     <div class="appointments-scroll">
-      @if (resultAppointments().length === 0) {
+      @if (appointments().length === 0) {
          <p>No hay citas pendientes.</p>
       }
 
-      @for (appt of resultAppointments(); track $index) {
+      @for (appt of appointments(); track $index) {
       <div 
         class="appointment-item" 
         (click)="selectAppointment(appt)"

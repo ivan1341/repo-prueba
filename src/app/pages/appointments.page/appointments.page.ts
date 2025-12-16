@@ -17,6 +17,10 @@ export class AppointmentsPage {
 
 private appointmentService = inject(AppointmentService);
 
+    constructor() {
+        this.getAppointmentsFormAPI();
+      }
+
 
   selectedAppointment: Appointment | null = null;
 
@@ -49,13 +53,27 @@ private appointmentService = inject(AppointmentService);
   ];
 
   // Señal que obtiene las citas desde el servicio, si no hay respuesta usa datos de prueba
-  appointmentsAPI = toSignal(this.appointmentService.getAppointments(), {initialValue: this.appointmentsTest});
 
-  // Señal para manejar la cita a eliminar
-  deleteAppointmentID = signal('');
+  getAppointmentsFormAPI() {
+    this.appointmentService.getAppointments().subscribe({
+      next: (data) => {
+        this.appointmentsAPI.set(data);
+        
+      },
+      error: (err) => {
+        this.appointmentsAPI.set(this.appointmentsTest);
+        console.error('Error al obtener las citas desde el API:', err);
+        console.error('Se muestra citas de prueba');
+      }
+    });
+  }
 
-  // Citas filtradas para no mostrar la eliminada
-  resultAppointments = computed( () => this.appointmentsAPI().filter(a => a.id !== this.deleteAppointmentID()) );
+  appointmentsAPI = signal<Appointment[]>([]);
+ 
+
+  // Citas filtradas para no mostrar las eliminada
+  appointments = computed( () => this.appointmentsAPI());
+
 
   // Función para ver detalles
   selectAppointment(appt: Appointment) {
@@ -75,8 +93,7 @@ private appointmentService = inject(AppointmentService);
         next: () => {
           console.log(`Cita con ID ${id} eliminada correctamente.`);
 
-          // Actualizamos la señal para filtrar la cita eliminada
-          this.deleteAppointmentID.set(id);
+          this.appointmentsAPI.update( current => current.filter(a => a.id !== id) );
         },
         error: (err) => {
           console.error('Error al eliminar la cita:', err);
