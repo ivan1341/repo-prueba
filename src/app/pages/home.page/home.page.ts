@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Header } from "../../components/header/header";
-import { Login } from "../../components/login/login";
+import { Banner } from "../../components/banner/banner";
 import { Footer } from "../../components/footer/footer";
 
 @Component({
   selector: 'app-home.page',
-  imports: [Header, Login, Footer],
+  imports: [Header, Banner, Footer],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
 })

@@ -1,0 +1,36 @@
+@use 'variables' as *;
+
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 10%;
+  gap: 2rem;
+  background: linear-gradient(135deg, $bg-light 0%, #e0f2fe 100%);
+
+  .hero-content {
+    flex: 1;
+    min-width: 300px;
+    
+    h1 {
+      font-size: 3rem;
+      color: $primary-dark;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+  }
+
+.image-box {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    font-size: 8rem;
+  }
+
+}
